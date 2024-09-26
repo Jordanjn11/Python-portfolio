@@ -1,3 +1,4 @@
+# the dataframe homelessness is available and pandas is loaded as pd.
 # Print the head of the homelessness data
 print(homelessness.head())
 
@@ -149,3 +150,95 @@ print(homelessness_reg_fam.head())
 22  East North Central   Michigan       5209.0          3142.0    9984072
 49  East North Central  Wisconsin       2740.0          2167.0    5807406
 14  East North Central    Indiana       3776.0          1482.0    6695497
+
+# Select the individuals column
+individuals = homelessness["individuals"]
+
+print(individuals.head())
+0      2570.0
+1      1434.0
+2      7259.0
+3      2280.0
+4    109008.0
+Name: individuals, dtype: float64
+
+
+# Create a DataFrame called state_fam that contains only the state and family_members columns of homelessness, in that order.
+# Select the state and family_members columns from dataframe homelessness
+state_fam = homelessness[["state", "family_members"]]
+# get the first few rows of the resulting subset
+print(state_fam.head())
+        state  family_members
+0     Alabama           864.0
+1      Alaska           582.0
+2     Arizona          2606.0
+3    Arkansas           432.0
+4  California         20964.0
+
+# Create a DataFrame called ind_state that contains the individuals and state columns of homelessness, in that order.
+# Select only the individuals and state columns, in that order
+ind_state = homelessness[["individuals", "state"]]
+
+# get the first few rows of the resulting subset
+print(ind_state.head())
+   individuals       state
+0       2570.0     Alabama
+1       1434.0      Alaska
+2       7259.0     Arizona
+3       2280.0    Arkansas
+4     109008.0  California
+
+# Filter homelessness for cases where the number of individuals is greater than ten thousand, assigning to ind_gt_10k. View the printed result.
+# Filter for rows where individuals is greater than 10000
+ind_gt_10k = homelessness[homelessness["individuals"] > 10000]
+
+# See the result
+print(ind_gt_10k)
+                region       state  individuals  family_members  state_pop
+4              Pacific  California     109008.0         20964.0   39461588
+9       South Atlantic     Florida      21443.0          9587.0   21244317
+32        Mid-Atlantic    New York      39827.0         52070.0   19530351
+37             Pacific      Oregon      11139.0          3337.0    4181886
+43  West South Central       Texas      19199.0          6111.0   28628666
+47             Pacific  Washington      16424.0          5880.0    7523869
+
+# Filter homelessness for cases where the USA Census region is "Mountain", assigning to mountain_reg. View the printed result.
+# Filter for rows where region is Mountain
+mountain_reg = homelessness[homelessness["region"] == "Mountain"]
+
+# See the result
+print(mountain_reg)
+      region       state  individuals  family_members  state_pop
+2   Mountain     Arizona       7259.0          2606.0    7158024
+5   Mountain    Colorado       7607.0          3250.0    5691287
+12  Mountain       Idaho       1297.0           715.0    1750536
+26  Mountain     Montana        983.0           422.0    1060665
+28  Mountain      Nevada       7058.0           486.0    3027341
+31  Mountain  New Mexico       1949.0           602.0    2092741
+44  Mountain        Utah       1904.0           972.0    3153550
+50  Mountain     Wyoming        434.0           205.0     577601
+
+# Filter homelessness for cases where the number of family_members is less than one thousand and the region is "Pacific", assigning to fam_lt_1k_pac. View the printed result.
+# Filter for rows where family_members is less than 1000 
+# and region is Pacific
+fam_lt_1k_pac = homelessness[(homelessness["family_members"] < 1000) & (homelessness["region"] == "Pacific")]
+
+# See the result
+print(fam_lt_1k_pac)
+<script.py> output:
+        region   state  individuals  family_members  state_pop
+    1  Pacific  Alaska       1434.0           582.0     735139
+# Filter homelessness for cases where the USA census state is in the list of Mojave states, canu, assigning to mojave_homelessness. View the printed result.
+# The Mojave Desert states
+canu = ["California", "Arizona", "Nevada", "Utah"]
+
+# Filter for rows in the Mojave Desert states
+mojave_homelessness = homelessness[homelessness["state"].isin(canu)]
+
+# See the result
+print(mojave_homelessness)
+      region       state  individuals  family_members  state_pop
+2   Mountain     Arizona       7259.0          2606.0    7158024
+4    Pacific  California     109008.0         20964.0   39461588
+28  Mountain      Nevada       7058.0           486.0    3027341
+44  Mountain        Utah       1904.0           972.0    3153550
