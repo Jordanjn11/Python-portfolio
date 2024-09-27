@@ -61,3 +61,21 @@ print(sales["date"].min())
 """
 This dataset includes weekly sales from February 2010 to October 2012
 """
+# create A custom IQR function = 75th percentile minus the 25th percentile
+def iqr(column):
+    return column.quantile(0.75) - column.quantile(0.25)
+# Use the custom iqr (inter-quartile range) function pre-defined along with .agg() to print the IQR of the temperature_c column of sales.
+# Print IQR of the temperature_c column
+print(sales["temperature_c"].agg(iqr))
+16.583333333333336
+
+# Update the column selection to use the custom iqr function with .agg() to print the IQR of temperature_c, fuel_price_usd_per_l, and unemployment, in that order.
+# Update to print IQR of temperature_c, fuel_price_usd_per_l, & unemployment
+print(sales[["temperature_c", "fuel_price_usd_per_l", "unemployment"]].agg(iqr))
+temperature_c           16.583
+fuel_price_usd_per_l     0.073
+unemployment             0.565
+dtype: float64
+
+# Update the aggregation functions called by .agg(): include iqr and np.median in that order.
+
