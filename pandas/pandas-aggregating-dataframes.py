@@ -123,3 +123,47 @@ print(sales_1_1[["date", "weekly_sales", "cum_weekly_sales", "cum_max_sales"]])
 9  2010-11-05      34238.88         243399.26       57258.43
 10 2010-12-03      22517.56         265916.82       57258.43
 11 2011-01-07      15984.24         281901.06       57258.43
+
+
+# Dropping duplicates
+# About the dataset: sales_1_1, which contains the sales data for department 1 of store 1. 
+import pandas as pd
+
+# Remove rows of sales with duplicate pairs of store and type and save as store_types and print the head.
+# Drop duplicate store/type combinations
+store_types = sales.drop_duplicates(subset=["store", "type"])
+print(store_types.head())
+      store type  department       date  weekly_sales  is_holiday  temperature_c  fuel_price_usd_per_l  unemployment
+0         1    A           1 2010-02-05      24924.50       False          5.728                 0.679         8.106
+901       2    A           1 2010-02-05      35034.06       False          4.550                 0.679         8.324
+1798      4    A           1 2010-02-05      38724.42       False          6.533                 0.686         8.623
+2699      6    A           1 2010-02-05      25619.00       False          4.683                 0.679         7.259
+3593     10    B           1 2010-02-05      40212.84       False         12.411                 0.782         9.765
+
+# Remove rows of sales with duplicate pairs of store and department and save as store_depts and print the head.
+# Drop duplicate store/department combinations
+store_depts = sales.drop_duplicates(subset=["store", "department"])
+print(store_depts.head())
+    store type  department       date  weekly_sales  is_holiday  temperature_c  fuel_price_usd_per_l  unemployment
+0       1    A           1 2010-02-05      24924.50       False          5.728                 0.679         8.106
+12      1    A           2 2010-02-05      50605.27       False          5.728                 0.679         8.106
+24      1    A           3 2010-02-05      13740.12       False          5.728                 0.679         8.106
+36      1    A           4 2010-02-05      39954.04       False          5.728                 0.679         8.106
+48      1    A           5 2010-02-05      32229.38       False          5.728                 0.679         8.106
+
+# Subset the rows that are holiday weeks using the is_holiday column, and drop the duplicate dates, saving as holiday_dates.
+# Subset the rows where is_holiday is True and drop duplicate dates
+holiday_dates = sales[sales["is_holiday"]].drop_duplicates(subset="date")
+
+# Select the date column of holiday_dates, and print.
+# Print date col of holiday_dates
+print(holiday_dates["date"])
+498    2010-09-10
+691    2011-11-25
+2315   2010-02-12
+6735   2012-09-07
+6810   2010-12-31
+6815   2012-02-10
+6820   2011-09-09
+#The holiday weeks correspond to the Superbowl in February, Labor Day in September, Thanksgiving in November, and Christmas in December.
+
