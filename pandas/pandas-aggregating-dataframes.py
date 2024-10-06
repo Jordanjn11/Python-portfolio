@@ -167,3 +167,5 @@ print(holiday_dates["date"])
 6820   2011-09-09
 #The holiday weeks correspond to the Superbowl in February, Labor Day in September, Thanksgiving in November, and Christmas in December.
 
+#Counting categorical variables
+##store_types and store_depts DataFrames you created in the last exercise are available, and pandas is imported as pd
